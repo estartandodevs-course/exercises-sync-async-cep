@@ -35,6 +35,7 @@ const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
 */
 
 async function getAddressByCep(cep) {
+  return null
   // implemente aqui
 }
 

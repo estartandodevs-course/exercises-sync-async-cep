@@ -28,4 +28,9 @@ describe("Tests", () => {
       "Avenida Cláudio Besserman Vianna, Jacarepaguá - Rio de Janeiro"
     );
   });
+
+  test("deveria retornar *, * - Jaguaquara", async () => {
+    const address = await getAddressByCep("45345-000");
+    expect(address).toBe("*, * - Jaguaquara");
+  });
 });

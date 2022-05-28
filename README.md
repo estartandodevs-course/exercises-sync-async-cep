@@ -4,8 +4,8 @@
 
 ### Clone this repository
 
- ´´´sh
-    git clone git@github.com:estartandodevs-course/exercises-sync-async-cep.git
- ´´´
+```sh
+ git clone https://github.com/b1z3rr4/exercises-sync-async-cep.git
+```
 
 Estartando Devs forked project for my course activity.

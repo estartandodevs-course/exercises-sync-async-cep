@@ -24,7 +24,7 @@ Exemplo de como a função deve retornar:
 Documentação da API:  https://viacep.com.br/
 
 */
-const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
+const BASE_API_VIA_CEP = "https://viacep.com.br/ws";
 
 /*
     TODO 1:

@@ -25,6 +25,7 @@ Documentação da API:  https://viacep.com.br/
 
 */
 
+const axios = require("axios");
 const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
 
 /*
@@ -34,8 +35,20 @@ const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
     - A função deve retornar o erro `CEP não encontrado` caso o cep não seja encontrado.
 */
 
+const getCep = async (cep) => {
+  try {
+    const result = await axios.get(`${BASE_API_VIA_CEP}/${cep}/json/`);
+    console.log("result", result.data);
+  } catch (error) {
+    console.log("ocorreu um erro");
+  }
+};
+
 async function getAddressByCep(cep) {
   // implemente aqui
+  
 }
+
+getCep("21011814")
 
 module.exports = { getAddressByCep };

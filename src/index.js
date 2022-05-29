@@ -36,9 +36,7 @@ async function getAddressByCep(cep) {
   try {
 
     const address = await axios.get(`${URL}/${cep}/json/`);
-    console.log("address", address.data.logradouro);
-    console.log("address", address.data.bairro);
-    console.log("address", address.data.localidade);
+    console.log("address", address.data.logradouro, address.data.bairro, address.data.localidade);
 
   }
   catch (error){

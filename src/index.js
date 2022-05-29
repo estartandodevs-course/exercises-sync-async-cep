@@ -40,18 +40,22 @@ const cep = readlineSync.question('What is your Zip Code? ');
 const getCep = async (cep) => {
   try {
     const cepResult = await axios.get(`${BASE_API_VIA_CEP}/${cep}/json/`);
-    console.log("cepResult", cepResult.data);
-    getAddressByCep(cepResult.data);
+    return cepResult.data;
   } catch (error) {
-    console.log("ocorreu um erro");
+    console.log("Ocorreu um erro", error)
+    throw new Error ("CEP não encontrado");
   }
 };
 
 async function getAddressByCep(cep) {
   // implemente aqui
-  
+  const cepResult = await getCep(cep);
+  const adress = `${cepResult.logradouro}, ${cepResult.bairro} - ${cepResult.localidade}`
+
+  console.log(adress)
+  return adress;
 }
 
-getCep(cep);
+getAddressByCep(cep);
 
 module.exports = { getAddressByCep };

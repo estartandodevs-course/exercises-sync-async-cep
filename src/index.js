@@ -31,20 +31,17 @@ const URL = "https://viacep.com.br/ws/";
 
 async function getAddressByCep(cep) {
 
-  const address = await axios.get(`${URL}/${cep}/json/`);
-  
-  try {
+   return new Promise( async (resolve, reject) => {
+    try{
+      const response = await axios.get( `${URL}/${cep}/json`);
+      const { logradouro, bairro, localidade } = response.data;
+      const output =`${logradouro}, ${bairro} - ${localidade}`;
+      resolve(output);
+    }catch(e){
+      reject(new Error('CEP não encontrado'));
+    }
+  });
 
-    const address = await axios.get(`${URL}/${cep}/json/`);
-    console.log("address", address.data.logradouro, address.data.bairro, address.data.localidade);
-
-  }
-  catch (error){
-
-    console.log("CEP não encontrado!");
-
-  }
 }
 
-getAddressByCep("50960140");
 module.exports = { getAddressByCep };

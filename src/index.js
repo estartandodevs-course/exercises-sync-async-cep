@@ -25,6 +25,8 @@ Documentação da API:  https://viacep.com.br/
 
 */
 
+const axios = require("axios");
+const readlineSync = require('readline-sync');
 const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
 
 /*
@@ -34,8 +36,26 @@ const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
     - A função deve retornar o erro `CEP não encontrado` caso o cep não seja encontrado.
 */
 
+const cep = readlineSync.question('What is your Zip Code? ');
+const getCep = async (cep) => {
+  try {
+    const cepResult = await axios.get(`${BASE_API_VIA_CEP}/${cep}/json/`);
+    return cepResult.data;
+  } catch (error) {
+    console.log("Ocorreu um erro", error)
+    throw new Error ("CEP não encontrado");
+  }
+};
+
 async function getAddressByCep(cep) {
   // implemente aqui
+  const cepResult = await getCep(cep);
+  const adress = `${cepResult.logradouro}, ${cepResult.bairro} - ${cepResult.localidade}`
+
+  console.log(adress)
+  return adress;
 }
+
+getAddressByCep(cep);
 
 module.exports = { getAddressByCep };

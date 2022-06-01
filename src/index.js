@@ -1,3 +1,4 @@
+const axios = require("axios");
 /*
 Para este exercício utilize o recurso de Async/Await do Javascript.
 Será necessário buscar as informações em uma api externa (ViaCep).
@@ -25,7 +26,7 @@ Documentação da API:  https://viacep.com.br/
 
 */
 
-const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
+const BASE_API_VIA_CEP = "https://viacep.com.br/ws";
 
 /*
     TODO 1:
@@ -35,7 +36,18 @@ const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
 */
 
 async function getAddressByCep(cep) {
-  // implemente aqui
+  return new Promise (async (resolve, reject) => {
+    try {
+      const response = await axios.get(`${BASE_API_VIA_CEP}/${cep}/json`);
+      const {logradouro, bairro, localidade} = response.data;
+      const adress = `${logradouro}, ${bairro} - ${localidade}`;
+      resolve(adress);
+    } catch (error) {
+      reject(new Error("CEP não encontrado"))
+    }
+  })
 }
+
+getAddressByCep("04812370").then((res) => console.log(res));
 
 module.exports = { getAddressByCep };

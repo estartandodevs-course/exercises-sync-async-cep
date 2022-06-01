@@ -24,8 +24,8 @@ Exemplo de como a função deve retornar:
 Documentação da API:  https://viacep.com.br/
 
 */
-
-const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
+const axios = require('axios');
+const BASE_API_VIA_CEP = 'https://viacep.com.br/ws/';
 
 /*
     TODO 1:
@@ -35,7 +35,20 @@ const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
 */
 
 async function getAddressByCep(cep) {
-  // implemente aqui
+  try {
+    const cepData = await axios.get(`${BASE_API_VIA_CEP}${cep}/json`);
+    if (cepData.data.erro) {
+      return 'CEP não encontrado';
+    } else {
+      return `${cepData.data.logradouro}, ${cepData.data.bairro} - ${cepData.data.localidade}`;
+    }
+  } catch (error) {
+    if (error.response) {
+      if (error.response.status == 400) {
+        throw new Error('CEP não encontrado');
+      }
+    }
+  }
 }
 
 module.exports = { getAddressByCep };

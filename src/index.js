@@ -25,17 +25,23 @@ Documentação da API:  https://viacep.com.br/
 
 */
 
-const BASE_API_VIA_CEP = "https://viacep.com.br/ws/";
+const axios = require("axios");
 
-/*
-    TODO 1:
-    - Implemente a função getAddressByCep com o recurso de Async/Await.
-    - A função deve retornar nesse formato: logradouro, bairro - localidade.
-    - A função deve retornar o erro `CEP não encontrado` caso o cep não seja encontrado.
-*/
+const URL = "https://viacep.com.br/ws/";
 
 async function getAddressByCep(cep) {
-  // implemente aqui
+
+   return new Promise( async (resolve, reject) => {
+    try{
+      const response = await axios.get( `${URL}/${cep}/json`);
+      const { logradouro, bairro, localidade } = response.data;
+      const output =`${logradouro}, ${bairro} - ${localidade}`;
+      resolve(output);
+    }catch(e){
+      reject(new Error('CEP não encontrado'));
+    }
+  });
+
 }
 
 module.exports = { getAddressByCep };
